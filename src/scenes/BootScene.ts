@@ -18,7 +18,7 @@ export class BootScene extends Phaser.Scene {
       this.load.image(image.key, image.path);
     }
     for (const audio of AUDIO_FILES) {
-      this.load.audio(audio.key, audio.path);
+      this.load.audio(audio.key, [audio.path].flat());
     }
   }
 

@@ -19,8 +19,14 @@ export const AUDIO_FILES = [
   { key: "sfx-hurt", path: "assets/audio/hurt.wav" },
   { key: "sfx-pickup", path: "assets/audio/pickup.wav" },
   { key: "sfx-ui", path: "assets/audio/ui-click.wav" },
-  { key: "music-menu", path: "assets/audio/music-menu.wav" },
-  { key: "music-game", path: "assets/audio/music-game.wav" },
+  {
+    key: "music-menu",
+    path: ["assets/audio/menu_theme.ogg", "assets/audio/music-menu.wav"],
+  },
+  {
+    key: "music-game",
+    path: ["assets/audio/main_theme_1.ogg", "assets/audio/music-game.wav"],
+  },
 ] as const;
 
 export function textureKey(scene: { textures: Phaser.Textures.TextureManager }, logical: string): string {
