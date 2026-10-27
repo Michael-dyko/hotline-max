@@ -5,8 +5,11 @@ export class WeaponSystem {
   private reloadEndsAt = 0;
   private nextShotAt = 0;
 
-  constructor(readonly stats: WeaponStats) {
-    this.ammoInMag = stats.magazineSize;
+  constructor(
+    readonly stats: WeaponStats,
+    ammo = stats.magazineSize,
+  ) {
+    this.ammoInMag = ammo;
   }
 
   get isReloading(): boolean {

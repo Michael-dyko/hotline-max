@@ -6,6 +6,14 @@ export const PLAYER_BODY_RADIUS = 12;
 export const CAMERA_FOLLOW_LERP = 0.12;
 export const TARGET_HP = 3;
 
+/** Local playthrough helpers. On in `npm run dev`, or add `?cheats` to the URL. */
+export function cheatsEnabled(): boolean {
+  if (import.meta.env.DEV) {
+    return true;
+  }
+  return new URLSearchParams(window.location.search).has("cheats");
+}
+
 export const COLORS = {
   background: 0x0a0a12,
   neonPink: 0xff2d6a,

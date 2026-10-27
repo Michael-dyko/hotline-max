@@ -1,14 +1,18 @@
 import Phaser from "phaser";
 import { COLORS, PLAYER_BODY_RADIUS } from "../config";
+import { textureKey } from "../data/assets";
 import { PLAYER_STATS } from "../data/player";
+import { AudioSystem } from "../systems/AudioSystem";
+import { FxSystem } from "../systems/FxSystem";
 
 export class Player {
   readonly sprite: Phaser.Physics.Arcade.Sprite;
-  hp = PLAYER_STATS.maxHp;
+  hp: number = PLAYER_STATS.maxHp;
   private lastHurtAt = -Infinity;
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
-    this.sprite = scene.physics.add.sprite(x, y, "player");
+    this.sprite = scene.physics.add.sprite(x, y, textureKey(scene, "player"));
+    this.sprite.setDisplaySize(32, 32);
     this.sprite.setCircle(PLAYER_BODY_RADIUS);
     this.sprite.setCollideWorldBounds(false);
     this.sprite.setDamping(false);
@@ -37,6 +41,9 @@ export class Player {
   }
 
   takeDamage(amount: number, now: number): boolean {
+    if (this.sprite.scene.registry.get("devGod") === true) {
+      return false;
+    }
     if (this.isDead || now - this.lastHurtAt < PLAYER_STATS.iFrameMs) {
       return false;
     }
@@ -55,8 +62,11 @@ export class Player {
 
   private showHurtFeedback(): void {
     this.sprite.setTint(COLORS.neonYellow);
-    this.sprite.scene.cameras.main.flash(70, 255, 45, 106, false);
-    this.sprite.scene.cameras.main.shake(80, 0.004);
+    const fx = this.sprite.scene.registry.get("fx");
+    if (fx instanceof FxSystem) {
+      fx.playerHurt();
+    }
+    AudioSystem.from(this.sprite.scene).playSfx("sfx-hurt");
     this.sprite.scene.time.delayedCall(80, () => {
       if (!this.isDead) {
         this.sprite.clearTint();

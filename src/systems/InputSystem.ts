@@ -7,6 +7,8 @@ export class InputSystem {
     S: Phaser.Input.Keyboard.Key;
     D: Phaser.Input.Keyboard.Key;
     R: Phaser.Input.Keyboard.Key;
+    SPACE: Phaser.Input.Keyboard.Key;
+    Q: Phaser.Input.Keyboard.Key;
   };
   private readonly move = new Phaser.Math.Vector2();
   private readonly aim = new Phaser.Math.Vector2();
@@ -17,18 +19,23 @@ export class InputSystem {
       throw new Error("Keyboard input is required for player movement.");
     }
 
+    keyboard.addCapture("SPACE");
     this.keys = keyboard.addKeys({
       W: Phaser.Input.Keyboard.KeyCodes.W,
       A: Phaser.Input.Keyboard.KeyCodes.A,
       S: Phaser.Input.Keyboard.KeyCodes.S,
       D: Phaser.Input.Keyboard.KeyCodes.D,
       R: Phaser.Input.Keyboard.KeyCodes.R,
+      SPACE: Phaser.Input.Keyboard.KeyCodes.SPACE,
+      Q: Phaser.Input.Keyboard.KeyCodes.Q,
     }) as {
       W: Phaser.Input.Keyboard.Key;
       A: Phaser.Input.Keyboard.Key;
       S: Phaser.Input.Keyboard.Key;
       D: Phaser.Input.Keyboard.Key;
       R: Phaser.Input.Keyboard.Key;
+      SPACE: Phaser.Input.Keyboard.Key;
+      Q: Phaser.Input.Keyboard.Key;
     };
   }
 
@@ -66,5 +73,13 @@ export class InputSystem {
 
   isReloadJustPressed(): boolean {
     return Phaser.Input.Keyboard.JustDown(this.keys.R);
+  }
+
+  isMeleeJustPressed(): boolean {
+    return Phaser.Input.Keyboard.JustDown(this.keys.SPACE);
+  }
+
+  isDropJustPressed(): boolean {
+    return Phaser.Input.Keyboard.JustDown(this.keys.Q);
   }
 }
