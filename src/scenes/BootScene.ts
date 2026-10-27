@@ -26,13 +26,6 @@ export class BootScene extends Phaser.Scene {
     document.title = giftText(GIFT.gameTitle);
     this.createPlaceholderTextures();
     AudioSystem.from(this);
-
-    const unlock = (): void => {
-      AudioSystem.from(this).unlock();
-    };
-    this.input.once("pointerdown", unlock);
-    this.input.keyboard?.once("keydown", unlock);
-
     this.scene.start("MenuScene");
   }
 
