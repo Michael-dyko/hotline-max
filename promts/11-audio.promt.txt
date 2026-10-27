@@ -1,0 +1,45 @@
+Implement an audio system for the game using the supplied local assets.
+
+AUDIO EVENTS
+Support sounds for:
+- Pistol firing.
+- Shotgun firing.
+- Reloading.
+- Bullets hitting walls.
+- Bullets hitting enemies.
+- Melee attacks.
+- Enemy death.
+- Player damage.
+- Weapon pickup.
+- Menu navigation and button clicks.
+
+MUSIC
+- Add background music to gameplay.
+- Add separate music for the main menu if a suitable track exists.
+- Avoid restarting the gameplay track unnecessarily during
+  scene transitions.
+- Handle transitions and cleanup correctly.
+
+BROWSER COMPATIBILITY
+- Respect browser autoplay restrictions.
+- Initialize or resume audio in response to a user interaction
+  when required.
+- Do not assume audio can play before the first click or key press.
+- Handle missing audio files without crashing the game.
+
+USER CONTROLS
+- Add music volume control.
+- Add sound-effects volume control.
+- Add a mute option.
+- Persist settings locally where appropriate.
+
+TECHNICAL REQUIREMENTS
+- Use Phaser's audio system where practical.
+- Avoid creating duplicate sounds or event listeners.
+- Keep audio configuration in one place.
+- Do not download audio dynamically from external websites.
+
+Inspect the supplied audio files before assigning them to events.
+Use reasonable defaults and avoid excessive overlapping sounds.
+
+Run the build and explain how to test the audio system.

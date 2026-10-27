@@ -1,0 +1,23 @@
+Review the current implementation for unnecessary complexity.
+
+Look for:
+- Duplicate logic.
+- Unnecessary abstractions.
+- Overly complicated state management.
+- Large classes with unrelated responsibilities.
+- Repeated configuration values.
+- Unnecessary dependencies.
+- Dead code.
+- Poorly managed scene transitions and event listeners.
+
+Do not refactor the entire project.
+
+First, report the three most important issues and explain
+their practical consequences.
+
+Then propose a minimal refactoring plan.
+
+Wait for my approval before making structural changes.
+
+The priority is a small, reliable, maintainable game,
+not an elaborate architecture.

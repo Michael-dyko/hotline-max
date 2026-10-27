@@ -1,0 +1,25 @@
+I want to add the following feature:
+
+[DESCRIBE THE FEATURE HERE]
+
+Before implementing it:
+1. Inspect the existing architecture and identify the relevant files.
+2. Explain how the feature should integrate with the current systems.
+3. Identify potential conflicts with existing mechanics.
+4. Propose the smallest reasonable implementation.
+5. Define how we will verify that it works.
+
+Then implement only this feature.
+
+Constraints:
+- Preserve existing working behavior.
+- Avoid unrelated refactoring.
+- Reuse existing systems where appropriate.
+- Do not introduce dependencies without a clear justification.
+- Keep configuration separate from implementation where useful.
+
+After implementation:
+- Run the relevant checks.
+- Run the production build.
+- Explain how to test the feature manually.
+- Report any known limitations.

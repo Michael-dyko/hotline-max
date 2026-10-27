@@ -1,0 +1,20 @@
+The latest changes introduced a bug.
+
+Do not rewrite the entire project or start implementing new features.
+
+First:
+1. Inspect the relevant code and recent changes.
+2. Reproduce the problem if possible.
+3. Identify the root cause instead of treating only the symptoms.
+4. Explain which files and systems are involved.
+5. Propose the smallest safe fix.
+
+Then:
+6. Implement the fix.
+7. Run the relevant checks and production build.
+8. Explain what caused the bug and how it was fixed.
+9. Mention any remaining uncertainty.
+
+Preserve all unrelated working functionality.
+Do not claim the bug is fixed unless you have verified the result
+to the extent possible in the current environment.

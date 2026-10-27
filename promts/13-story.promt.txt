@@ -1,0 +1,41 @@
+Add personalized birthday content to the game.
+
+GOAL
+Transform the existing action game into a personal birthday gift
+without changing its core gameplay systems.
+
+CONTENT
+- Add a personalized game title.
+- Add a short introductory screen.
+- Allow level names and brief messages to be configured as data.
+- Add optional short dialogue lines between levels.
+- Add a unique final encounter.
+- Add a final birthday congratulations screen.
+- Include a personal message at the end.
+
+CONFIGURATION
+Create one clearly documented configuration file containing:
+- The friend's display name.
+- The game title.
+- The introductory message.
+- Level titles.
+- Optional dialogue.
+- The final boss name.
+- The final birthday message.
+
+Use obvious placeholder values for all personal information.
+
+PRESENTATION
+- Keep text readable at common desktop resolutions.
+- Use the existing visual style.
+- Keep dialogue short and skippable.
+- Make the ending feel like a deliberate conclusion.
+- Allow the player to restart the game or return to the menu.
+
+IMPORTANT
+Do not invent personal facts or jokes about the recipient.
+Do not add real names or personal details unless I supply them.
+Do not make changes to combat mechanics unless necessary.
+
+Implement the content and explain how I can customize it
+without editing gameplay code.

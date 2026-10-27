@@ -1,0 +1,31 @@
+Implement the first playable level using simple placeholder graphics.
+
+LEVEL DESIGN
+Create a small top-down level containing:
+- An outer boundary.
+- Several rectangular rooms.
+- Connecting corridors.
+- Doorways.
+- A few obstacles, such as tables or crates.
+
+COLLISION
+- The player must collide with solid walls and obstacles.
+- The player must not pass through walls.
+- The player should move smoothly along walls instead of getting
+  permanently stuck when moving diagonally into a corner.
+- Doorways must remain traversable.
+- Camera bounds must match the level boundaries.
+
+TECHNICAL REQUIREMENTS
+- Define the level layout in a clear, maintainable way.
+- Keep level data separate from player movement logic.
+- Use Phaser collision facilities where appropriate.
+- Avoid creating hundreds of individual objects when a simpler
+  representation would work.
+- Make it possible to add more levels later without rewriting
+  the movement system.
+
+Do not add enemies or weapons yet.
+
+Run type checking and the production build.
+Explain how collision detection works and how I can add another room.

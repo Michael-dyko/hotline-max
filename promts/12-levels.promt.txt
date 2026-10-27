@@ -1,0 +1,34 @@
+Extend the game to support multiple levels.
+
+ARCHITECTURE
+- Keep level data separate from the core gameplay logic.
+- Use a consistent format to define rooms, walls, doors,
+  obstacles, enemy spawn points, and player spawn points.
+- Reuse existing gameplay systems.
+
+LEVEL FLOW
+- Add at least three short levels.
+- Each level should have a distinct layout.
+- Each level should contain a reasonable number of enemies.
+- The player should spawn at a safe, accessible position.
+- The exit or completion condition must be clear.
+- Completing a level should advance to the next level.
+- Completing the final level should trigger the ending.
+
+DESIGN
+- Make each level short enough to replay quickly.
+- Introduce difficulty gradually.
+- Avoid placing enemies where the player can be hit before
+  having a reasonable opportunity to react.
+- Ensure all required enemies and objectives can be reached.
+- Avoid accidental softlocks.
+
+TESTING
+- Verify every level's geometry and collision boundaries.
+- Verify that enemies spawn at valid locations.
+- Verify that the player can reach every required objective.
+- Verify that restarting a level resets all relevant state.
+- Verify that completing the last level triggers the ending.
+
+Do not add procedural generation or an advanced level editor.
+Keep the implementation appropriate for a small birthday game.

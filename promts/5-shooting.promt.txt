@@ -1,0 +1,33 @@
+Implement a basic pistol combat system.
+
+PLAYER INPUT
+- Aim with the mouse.
+- Fire with the left mouse button.
+- Support holding the mouse button for repeated firing, with
+  a configurable fire rate.
+- Prevent firing when the weapon is empty or reloading.
+
+PISTOL
+- Give the pistol a configurable magazine capacity, fire rate,
+  reload duration, and damage.
+- Display the remaining ammunition.
+- Add a reload action using the R key.
+- Show a brief muzzle flash when firing.
+
+PROJECTILES
+- Projectiles travel toward the cursor.
+- Projectiles must collide with walls and stop when blocked.
+- Projectiles must be able to hit enemies once enemies are added.
+- Remove projectiles when they hit something or leave the world.
+- Prevent projectiles from accumulating indefinitely.
+
+DESIGN
+Keep weapon parameters configurable.
+Do not hardcode them across unrelated modules.
+
+For now, create simple test targets so I can verify the shooting.
+
+Do not implement enemy AI or additional weapons yet.
+
+Validate the implementation, run the available checks, and explain
+how to test firing, reloading, and wall collisions.

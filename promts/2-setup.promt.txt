@@ -1,0 +1,26 @@
+Implement the initial project setup for our Phaser 3 game.
+
+Requirements:
+- Use TypeScript and Vite.
+- Use a stable, mutually compatible set of dependency versions.
+- Configure npm scripts for development, production build,
+  and type checking.
+- Create the minimal Phaser game configuration.
+- Set up BootScene, MenuScene, and GameScene.
+- Display a simple main menu with the game title and a Start button.
+- Clicking Start should open the gameplay scene.
+- Use placeholder graphics created in code.
+- Configure a fixed logical game resolution with responsive scaling.
+- Handle browser resizing without stretching the game incorrectly.
+
+Do not implement combat, enemies, or weapons yet.
+
+Before finishing:
+1. Run the available type checks.
+2. Run the production build.
+3. Fix any errors you encounter.
+4. Tell me how to start the development server.
+5. Summarize the files you created or changed.
+
+Do not claim a check passed unless you actually ran it.
+Do not add unrelated features.

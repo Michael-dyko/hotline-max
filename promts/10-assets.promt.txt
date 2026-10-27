@@ -1,0 +1,36 @@
+Integrate the supplied visual assets into the existing game.
+
+FIRST, INSPECT THE ASSETS
+- List the supplied files.
+- Identify image formats, sprite sheets, tilemaps, and animations.
+- Inspect available image dimensions and sprite sheet layouts.
+- Identify any missing or incompatible assets.
+- Do not guess animation frame layouts without inspecting the files.
+
+INTEGRATION
+- Replace placeholder player graphics with the supplied player sprites.
+- Replace enemy placeholders with suitable enemy sprites.
+- Replace the level's placeholder geometry with the supplied tiles.
+- Add appropriate animations where sprite sheets support them.
+- Preserve all existing movement, collision, combat, and AI behavior.
+- Keep visual dimensions consistent with the logical game scale.
+- Ensure the player's aiming direction and weapon visuals remain clear.
+- Preserve placeholder graphics as a fallback when practical.
+
+ASSET ORGANIZATION
+- Keep asset files under public/assets/.
+- Use clear, consistent asset keys.
+- Avoid duplicating assets.
+- Keep asset-loading logic organized.
+- Handle missing assets gracefully during development.
+
+IMPORTANT
+Do not modify or redraw the supplied assets.
+Do not add unrelated assets or change the art style.
+Do not rewrite working gameplay systems merely to integrate sprites.
+
+After integration:
+1. Run the build and type checks.
+2. Explain how each asset is used.
+3. List any assets that still need to be supplied.
+4. Tell me what to check visually in the browser.

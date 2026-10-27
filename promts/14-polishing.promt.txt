@@ -1,0 +1,38 @@
+Polish the game's menus, HUD, and user experience.
+
+MAIN MENU
+- Display the game title.
+- Add Start Game, Controls, and Credits buttons.
+- Provide visual feedback for hover and click states.
+
+GAME HUD
+- Display ammunition and current weapon.
+- Display health if the selected game mode uses health.
+- Display the current level.
+- Show a brief objective or completion status.
+- Keep the HUD unobtrusive.
+
+PAUSE MENU
+- Support pausing and resuming the game.
+- Add a restart-level action.
+- Add a return-to-menu action.
+- Ensure enemies and gameplay timers stop while paused.
+
+CONTROLS
+- Show a controls screen explaining keyboard and mouse input.
+- Ensure every displayed control matches the actual implementation.
+
+VISUAL CONSISTENCY
+- Use consistent typography, spacing, and button styling.
+- Keep text readable.
+- Avoid excessive visual clutter.
+- Ensure the UI scales correctly with the game canvas.
+
+ROBUSTNESS
+- Prevent gameplay input from triggering menu actions accidentally.
+- Ensure restarting or returning to the menu does not leave
+  active timers, duplicate listeners, or stale game state.
+- Ensure audio settings remain consistent across scenes.
+
+Do not redesign the entire game or add new gameplay features.
+Run the build and report what has changed.

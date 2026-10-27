@@ -1,0 +1,24 @@
+Implement melee combat and weapon pickups.
+
+MELEE
+- Add a melee attack activated by the Space key.
+- The attack should affect enemies within a short distance
+  in the direction the player is facing.
+- Add a short attack cooldown.
+- Give the attack clear visual and audio feedback.
+- Prevent the same attack from hitting the same enemy repeatedly.
+
+WEAPON PICKUPS
+- Allow the player to pick up weapons from the ground.
+- Add at least one alternative weapon, such as a shotgun.
+- Make weapon statistics configurable.
+- Display the currently equipped weapon and its ammunition.
+- Define what happens to the previous weapon when a new one is picked up.
+- Add a simple way to drop or discard a weapon if appropriate.
+
+Keep the implementation small and compatible with the existing
+combat system.
+
+Do not introduce an inventory framework.
+
+Validate melee range, cooldowns, weapon switching, and ammunition.

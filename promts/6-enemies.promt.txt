@@ -1,0 +1,46 @@
+Implement the first enemy AI system.
+
+CONTEXT
+The player can move, aim, and shoot. The level contains solid walls.
+Preserve existing mechanics.
+
+ENEMY TYPES
+For now, implement one enemy type armed with a pistol.
+
+AI STATES
+Use a simple, explicit state machine:
+- PATROL
+- ALERT
+- CHASE
+- ATTACK
+- DEAD
+
+BEHAVIOR
+- Enemies patrol between predefined points.
+- Enemies detect the player within a configurable range.
+- Solid walls block line of sight.
+- Enemies can investigate a recent disturbance, such as a gunshot.
+- If an enemy detects the player, it becomes alerted.
+- If appropriate, it pursues the player or attacks from a suitable
+  distance.
+- Enemies must not shoot through solid walls.
+- Enemies should have a short reaction delay before firing.
+- Enemies should stop acting after death.
+
+COMBAT
+- Enemies can take damage from player projectiles.
+- Display a clear hit reaction.
+- Remove or disable dead enemies safely.
+- Prevent a single projectile from damaging the same enemy repeatedly.
+
+TECHNICAL REQUIREMENTS
+- Keep AI decisions separate from visual effects.
+- Avoid running expensive perception checks unnecessarily
+  on every frame.
+- Make enemy movement and combat parameters configurable.
+- Ensure enemies do not become permanently stuck on walls.
+
+Do not implement advanced pathfinding yet.
+Use a simple solution appropriate for a small level.
+
+Test the implementation and explain the known limitations.

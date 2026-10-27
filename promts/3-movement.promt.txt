@@ -1,0 +1,33 @@
+Implement the player movement and camera system.
+
+CONTEXT
+This is a Phaser 3 + TypeScript top-down action game.
+Preserve the existing project architecture.
+
+PLAYER
+- Create a Player entity or class.
+- Use a simple placeholder shape or sprite.
+- WASD controls movement.
+- Normalize diagonal movement so it is not faster than
+  horizontal or vertical movement.
+- Movement should feel responsive and consistent.
+- Rotate the player toward the mouse cursor.
+- Keep aiming direction independent from movement direction.
+
+CAMERA
+- Follow the player smoothly.
+- Keep the player visible at all times.
+- Configure world bounds so the camera cannot scroll infinitely
+  beyond the level.
+
+IMPLEMENTATION RULES
+- Keep player input and movement logic organized.
+- Do not add weapons, enemies, health, or combat yet.
+- Avoid unnecessary abstractions.
+- Preserve the existing menu and scene transitions.
+
+VALIDATION
+- Run TypeScript checks and the production build.
+- Fix errors introduced by this change.
+- Tell me exactly how to test movement and aiming.
+- List the files changed and explain the main decisions.

@@ -1,0 +1,31 @@
+Implement the core gameplay loop.
+
+PLAYER
+- Add a configurable health system.
+- The player receives damage when hit by an enemy attack.
+- Show health clearly in the UI.
+- Add a brief damage feedback effect.
+- When health reaches zero, stop player input and show a death screen.
+
+GAME FLOW
+- The player can restart the level after death.
+- The level can be completed when all required enemies are defeated.
+- Show a level-complete screen.
+- Allow the player to proceed to the next level when available.
+- Provide a reliable way to return to the main menu.
+
+DESIGN
+- Keep game state transitions explicit.
+- Ensure restarting resets enemies, projectiles, pickups,
+  timers, and temporary effects.
+- Prevent old event listeners or timers from affecting a restarted game.
+- Avoid duplicating objects every time the level restarts.
+
+BALANCING
+- Keep health and damage values configurable.
+- Make it possible to switch to a one-hit-kill mode later.
+
+Do not add new enemy types or complicated progression systems.
+
+Run type checking and the production build.
+Test all state transitions and report any remaining issues.

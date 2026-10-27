@@ -1,0 +1,34 @@
+Improve the visual feedback and game feel without changing
+the core gameplay mechanics.
+
+STYLE
+Create a retro neon aesthetic inspired by top-down arcade action games.
+Use a restrained palette with dark backgrounds and contrasting
+neon accents.
+
+EFFECTS
+- Add muzzle flashes.
+- Add short impact effects when bullets hit walls or enemies.
+- Add brief hit flashes for damaged enemies.
+- Add screen shake for impactful events.
+- Add short-lived particles for selected combat events.
+- Add a subtle visual effect when the player takes damage.
+- Add simple death animations for enemies.
+- Add visual feedback when the player picks up a weapon.
+- Add a clear level-complete transition.
+
+PERFORMANCE
+- Reuse or limit temporary objects where appropriate.
+- Destroy finished particle effects and temporary sprites.
+- Avoid excessive screen shake that makes the game difficult to play.
+- Respect reduced-motion preferences where practical.
+
+IMPORTANT
+Do not replace the existing game architecture.
+Do not add external assets yet.
+Implement the effects using simple shapes, tweens, and particles
+where possible.
+
+Make important effect parameters configurable.
+
+Run the available checks and verify that the game remains playable.

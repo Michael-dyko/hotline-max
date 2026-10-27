@@ -1,0 +1,51 @@
+Perform a release-readiness review of the existing game.
+
+Do not add new features before completing the review.
+
+CHECK THE FOLLOWING
+
+1. BUILD
+- Run TypeScript checks.
+- Run the production build.
+- Fix errors introduced by the current project.
+
+2. GAMEPLAY
+- Verify movement and aiming.
+- Verify wall collisions.
+- Verify shooting, reloading, and ammunition.
+- Verify enemy AI and line of sight.
+- Verify damage and death.
+- Verify level restart.
+- Verify level completion and progression.
+- Verify the final birthday screen.
+
+3. STATE AND CLEANUP
+- Look for duplicate event listeners.
+- Look for timers that survive scene transitions.
+- Look for projectiles or particles that accumulate indefinitely.
+- Check for stale state after restarting a level.
+- Check for errors when returning to the main menu.
+
+4. BROWSER
+- Check responsive canvas scaling.
+- Check mouse and keyboard input.
+- Check audio initialization after user interaction.
+- Check for missing asset paths.
+- Check browser console errors where possible.
+
+5. DEPLOYMENT
+- Confirm the production build produces static files suitable
+  for deployment.
+- Identify any assumptions about the site's base URL.
+- Explain how to deploy the build to itch.io or GitHub Pages.
+- Do not deploy anything or upload files without my approval.
+
+6. REPORT
+- Summarize verified functionality.
+- List unresolved bugs.
+- Distinguish tests actually performed from checks that
+  still require manual browser testing.
+- Provide a short final manual testing checklist.
+
+Do not claim the game is fully tested if only the build was checked.
+Prioritize correctness and stability over new features.
