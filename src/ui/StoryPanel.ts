@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { COLORS, GAME_HEIGHT, GAME_WIDTH } from "../config";
 import { prefersReducedMotion } from "../data/fx";
-import { AudioSystem } from "../systems/AudioSystem";
+import { addMenuButton as placeMenuButton } from "./MenuButton";
 
 export function drawMenuGrid(scene: Phaser.Scene): void {
   const graphics = scene.add.graphics();
@@ -63,21 +63,5 @@ export function addMenuButton(
   y: number,
   onClick: () => void,
 ): void {
-  const x = GAME_WIDTH / 2;
-  const button = scene.add.image(x, y, "button");
-  scene.add
-    .text(x, y, label, {
-      fontFamily: "monospace",
-      fontSize: "28px",
-      color: COLORS.text,
-    })
-    .setOrigin(0.5);
-
-  const hit = scene.add.zone(x, y, 280, 64).setInteractive({ useHandCursor: true });
-  hit.on("pointerover", () => button.setTint(0x2de2ff));
-  hit.on("pointerout", () => button.clearTint());
-  hit.on("pointerdown", () => {
-    AudioSystem.from(scene).playSfx("sfx-ui");
-    onClick();
-  });
+  placeMenuButton(scene, label, onClick, { y, fontSize: "28px" });
 }

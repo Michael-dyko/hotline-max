@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { COLORS, GAME_HEIGHT, GAME_WIDTH } from "../config";
-import { AudioSystem } from "../systems/AudioSystem";
+import { addMenuButton } from "./MenuButton";
 
 type OverlayButton = {
   label: string;
@@ -27,9 +27,9 @@ export class ResultOverlay {
       .setDepth(100);
 
     const heading = this.scene.add
-      .text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 140, title, {
+      .text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 160, title, {
         fontFamily: "monospace",
-        fontSize: "48px",
+        fontSize: "44px",
         color: title === "YOU DIED" ? "#ff2d6a" : "#2de2ff",
         align: "center",
         wordWrap: { width: GAME_WIDTH - 120 },
@@ -42,9 +42,9 @@ export class ResultOverlay {
 
     if (options.body) {
       const body = this.scene.add
-        .text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 60, options.body, {
+        .text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 80, options.body, {
           fontFamily: "monospace",
-          fontSize: "22px",
+          fontSize: "20px",
           color: COLORS.text,
           align: "center",
           wordWrap: { width: GAME_WIDTH - 200 },
@@ -55,8 +55,15 @@ export class ResultOverlay {
       this.items.push(body);
     }
 
+    const startY = options.body ? GAME_HEIGHT / 2 + 10 : GAME_HEIGHT / 2 - 20;
     buttons.forEach((button, index) => {
-      this.addButton(button.label, GAME_HEIGHT / 2 + 40 + index * 80, button.onClick);
+      this.items.push(
+        ...addMenuButton(this.scene, button.label, button.onClick, {
+          y: startY + index * 80,
+          depth: 101,
+          scrollFactor: 0,
+        }),
+      );
     });
 
     if (options.skippable && buttons[0]) {
@@ -69,38 +76,13 @@ export class ResultOverlay {
         used = true;
         first.onClick();
       };
-      dim.setInteractive();
-      dim.on("pointerdown", this.skipHandler);
       this.scene.input.keyboard?.on("keydown-SPACE", this.skipHandler);
       this.scene.input.keyboard?.on("keydown-ENTER", this.skipHandler);
     }
   }
 
-  private addButton(label: string, y: number, onClick: () => void): void {
-    const x = GAME_WIDTH / 2;
-    const image = this.scene.add
-      .image(x, y, "button")
-      .setScrollFactor(0)
-      .setDepth(101)
-      .setInteractive({ useHandCursor: true });
-    const text = this.scene.add
-      .text(x, y, label, {
-        fontFamily: "monospace",
-        fontSize: "24px",
-        color: COLORS.text,
-      })
-      .setOrigin(0.5)
-      .setScrollFactor(0)
-      .setDepth(102);
-
-    image.on("pointerover", () => image.setTint(0x2de2ff));
-    image.on("pointerout", () => image.clearTint());
-    image.on("pointerdown", () => {
-      AudioSystem.from(this.scene).playSfx("sfx-ui");
-      onClick();
-    });
-
-    this.items.push(image, text);
+  hide(): void {
+    this.clear();
   }
 
   private clear(): void {

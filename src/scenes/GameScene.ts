@@ -18,7 +18,7 @@ import { WeaponSystem } from "../systems/WeaponSystem";
 import { Hud } from "../ui/Hud";
 import { ResultOverlay } from "../ui/ResultOverlay";
 
-type FlowState = "playing" | "dead" | "complete";
+type FlowState = "playing" | "paused" | "dead" | "complete";
 
 type GameSceneData = {
   levelId?: string;
@@ -97,28 +97,10 @@ export class GameScene extends Phaser.Scene {
       CAMERA_FOLLOW_LERP,
     );
 
-    this.add
-      .text(24, 16, "WASD  |  LMB fire  |  SPACE melee  |  R reload  |  Q drop", {
-        fontFamily: "monospace",
-        fontSize: "15px",
-        color: "#2de2ff",
-      })
-      .setScrollFactor(0)
-      .setDepth(10);
-
-    this.add
-      .text(24, 42, "ESC: menu", {
-        fontFamily: "monospace",
-        fontSize: "16px",
-        color: COLORS.muted,
-      })
-      .setScrollFactor(0)
-      .setDepth(10);
-
     const copy = getLevelCopy(this.levelId);
     if (copy.briefing) {
       const briefing = this.add
-        .text(GAME_WIDTH / 2, 168, giftText(copy.briefing), {
+        .text(GAME_WIDTH / 2, 150, giftText(copy.briefing), {
           fontFamily: "monospace",
           fontSize: "22px",
           color: "#ffe566",
@@ -138,7 +120,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     this.input.keyboard?.on("keydown-ESC", () => {
-      this.goToMenu();
+      this.togglePause();
     });
     this.input.keyboard?.on("keydown-M", () => {
       AudioSystem.from(this).toggleMute();
@@ -177,13 +159,13 @@ export class GameScene extends Phaser.Scene {
     });
 
     this.input.keyboard?.on("keydown-ONE", () => {
-      this.scene.start("GameScene", { levelId: "level-1" });
+      this.goToLevel("level-1");
     });
     this.input.keyboard?.on("keydown-TWO", () => {
-      this.scene.start("GameScene", { levelId: "level-2" });
+      this.goToLevel("level-2");
     });
     this.input.keyboard?.on("keydown-THREE", () => {
-      this.scene.start("GameScene", { levelId: "level-3" });
+      this.goToLevel("level-3");
     });
     this.input.keyboard?.on("keydown-G", () => {
       this.registry.set("devGod", this.registry.get("devGod") !== true);
@@ -292,7 +274,7 @@ export class GameScene extends Phaser.Scene {
           [
             {
               label: "NEXT",
-              onClick: () => this.scene.start("GameScene", { levelId: nextId }),
+              onClick: () => this.goToLevel(nextId),
             },
             { label: "MENU", onClick: () => this.goToMenu() },
           ],
@@ -308,8 +290,49 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
+  private togglePause(): void {
+    if (this.flow === "dead" || this.flow === "complete") {
+      return;
+    }
+    if (this.flow === "paused") {
+      this.resumePlay();
+      return;
+    }
+    this.pausePlay();
+  }
+
+  private pausePlay(): void {
+    this.flow = "paused";
+    this.fireArmed = false;
+    this.physics.world.pause();
+    this.time.paused = true;
+    this.tweens.pauseAll();
+    this.player.sprite.setVelocity(0, 0);
+    this.overlay.show("PAUSED", [
+      { label: "RESUME", onClick: () => this.resumePlay() },
+      { label: "RESTART", onClick: () => this.restartLevel() },
+      { label: "MENU", onClick: () => this.goToMenu() },
+    ]);
+  }
+
+  private resumePlay(): void {
+    if (this.flow !== "paused") {
+      return;
+    }
+    this.overlay.hide();
+    this.physics.world.resume();
+    this.time.paused = false;
+    this.tweens.resumeAll();
+    this.fireArmed = false;
+    this.flow = "playing";
+  }
+
+  private goToLevel(levelId: string): void {
+    this.scene.start("GameScene", { levelId });
+  }
+
   private restartLevel(): void {
-    this.scene.restart({ levelId: this.levelId });
+    this.scene.start("GameScene", { levelId: this.levelId });
   }
 
   private goToMenu(): void {

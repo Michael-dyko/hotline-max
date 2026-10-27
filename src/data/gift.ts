@@ -48,6 +48,12 @@ export const GIFT = {
     "Thanks for playing.",
     "A small game for a big day.",
   ],
+
+  creditsLines: [
+    "A birthday game for {name}.",
+    "Built with Phaser 3.",
+    "Replace this copy in src/data/gift.ts.",
+  ],
 } as const;
 
 export type GiftLevelId = keyof typeof GIFT.levels;
