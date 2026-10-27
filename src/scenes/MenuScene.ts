@@ -1,5 +1,10 @@
 import Phaser from "phaser";
 import { COLORS, GAME_HEIGHT, GAME_WIDTH } from "../config";
+import { prefersReducedMotion } from "../data/fx";
+import { GIFT, giftText } from "../data/gift";
+import { AudioSystem } from "../systems/AudioSystem";
+import { AudioPanel } from "../ui/AudioPanel";
+import { drawMenuGrid } from "../ui/StoryPanel";
 
 export class MenuScene extends Phaser.Scene {
   constructor() {
@@ -8,17 +13,33 @@ export class MenuScene extends Phaser.Scene {
 
   create(): void {
     this.cameras.main.setBackgroundColor(COLORS.background);
+    const audio = AudioSystem.from(this);
+    audio.playMusic("music-menu");
+    drawMenuGrid(this);
+    new AudioPanel(this, audio, 48, GAME_HEIGHT - 140);
 
-    this.add
-      .text(GAME_WIDTH / 2, 180, "HOTLINE MAX", {
+    const title = this.add
+      .text(GAME_WIDTH / 2, 180, giftText(GIFT.gameTitle), {
         fontFamily: "monospace",
         fontSize: "64px",
         color: "#ff2d6a",
+        stroke: "#2de2ff",
+        strokeThickness: 1,
       })
       .setOrigin(0.5);
 
+    if (!prefersReducedMotion()) {
+      this.tweens.add({
+        targets: title,
+        alpha: 0.72,
+        duration: 900,
+        yoyo: true,
+        repeat: -1,
+      });
+    }
+
     this.add
-      .text(GAME_WIDTH / 2, 250, "A birthday bloodbath", {
+      .text(GAME_WIDTH / 2, 250, giftText(GIFT.menuTagline), {
         fontFamily: "monospace",
         fontSize: "20px",
         color: COLORS.muted,
@@ -51,7 +72,9 @@ export class MenuScene extends Phaser.Scene {
     });
 
     hit.on("pointerdown", () => {
-      this.scene.start("GameScene", { levelId: "level-1" });
+      audio.unlock();
+      audio.playSfx("sfx-ui");
+      this.scene.start("IntroScene");
     });
   }
 }

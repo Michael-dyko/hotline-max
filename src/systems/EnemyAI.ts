@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { ENEMY_AI } from "../data/enemies";
-import type { Rect } from "../data/levels";
+import type { EnemySpawn, Rect } from "../data/levels";
 import { Enemy } from "../entities/Enemy";
 import type { Player } from "../entities/Player";
 import type { CombatSystem } from "./CombatSystem";
@@ -14,11 +14,11 @@ export class EnemyAI {
     scene: Phaser.Scene,
     private readonly combat: CombatSystem,
     private readonly solids: Rect[],
-    spawns: { patrol: { x: number; y: number }[] }[],
+    spawns: EnemySpawn[],
   ) {
     this.sprites = scene.physics.add.group();
     for (const spawn of spawns) {
-      const enemy = new Enemy(scene, spawn.patrol);
+      const enemy = new Enemy(scene, spawn);
       this.enemies.push(enemy);
       this.sprites.add(enemy.sprite);
     }
@@ -77,6 +77,7 @@ export class EnemyAI {
       }
 
       this.act(enemy, player, now, delta);
+      enemy.syncLabel();
     }
   }
 

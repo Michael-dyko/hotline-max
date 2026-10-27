@@ -6,9 +6,11 @@ import {
   PROJECTILE_KIND,
   recycleProjectile,
 } from "../entities/Projectile";
+import { AudioSystem } from "./AudioSystem";
+import type { FxSystem } from "./FxSystem";
 import type { WeaponSystem } from "./WeaponSystem";
 
-const MAX_PROJECTILES = 48;
+const MAX_PROJECTILES = 64;
 
 export type Shooter = {
   x: number;
@@ -20,7 +22,10 @@ export class CombatSystem {
   readonly projectiles: Phaser.Physics.Arcade.Group;
   readonly targets: Phaser.Physics.Arcade.StaticGroup;
 
-  constructor(private readonly scene: Phaser.Scene) {
+  constructor(
+    private readonly scene: Phaser.Scene,
+    readonly fx: FxSystem,
+  ) {
     this.projectiles = scene.physics.add.group({
       classType: Phaser.Physics.Arcade.Sprite,
       maxSize: MAX_PROJECTILES,
@@ -60,30 +65,49 @@ export class CombatSystem {
       return false;
     }
 
-    const angle = shooter.rotation;
     const stats = weapon.stats;
-    const x = shooter.x + Math.cos(angle) * stats.muzzleOffset;
-    const y = shooter.y + Math.sin(angle) * stats.muzzleOffset;
-    const bullet = this.projectiles.get(x, y, "bullet") as
-      | Phaser.Physics.Arcade.Sprite
-      | null;
+    const pellets = Math.max(1, stats.pelletCount);
+    let spawned = 0;
 
-    if (!bullet) {
+    for (let index = 0; index < pellets; index += 1) {
+      const offset = pellets === 1 ? 0 : index / (pellets - 1) - 0.5;
+      const angle = shooter.rotation + offset * 2 * stats.spreadRad;
+      const x = shooter.x + Math.cos(angle) * stats.muzzleOffset;
+      const y = shooter.y + Math.sin(angle) * stats.muzzleOffset;
+      const bullet = this.projectiles.get(x, y, "bullet") as
+        | Phaser.Physics.Arcade.Sprite
+        | null;
+      if (!bullet) {
+        break;
+      }
+
+      recycleProjectile(
+        bullet,
+        x,
+        y,
+        angle,
+        stats.projectileSpeed,
+        stats.damage,
+        now + stats.projectileLifespanMs,
+        team,
+      );
+      spawned += 1;
+    }
+
+    if (spawned === 0) {
       weapon.ammoInMag += 1;
       return false;
     }
 
-    recycleProjectile(
-      bullet,
-      x,
-      y,
-      angle,
-      stats.projectileSpeed,
-      stats.damage,
-      now + stats.projectileLifespanMs,
-      team,
+    const flashAngle = shooter.rotation;
+    this.showMuzzleFlash(
+      shooter.x + Math.cos(flashAngle) * stats.muzzleOffset,
+      shooter.y + Math.sin(flashAngle) * stats.muzzleOffset,
+      stats,
     );
-    this.showMuzzleFlash(x, y, stats);
+    AudioSystem.from(this.scene).playSfx(
+      stats.id === "shotgun" ? "sfx-shotgun" : "sfx-pistol",
+    );
     return true;
   }
 
@@ -115,6 +139,7 @@ export class CombatSystem {
     const hp = Number(target.getData("hp")) - Number(damage);
     target.setData("hp", hp);
     target.setTint(COLORS.neonYellow);
+    this.fx.enemyHit(target.x, target.y);
 
     this.scene.time.delayedCall(80, () => {
       if (target.active) {
@@ -127,23 +152,17 @@ export class CombatSystem {
     }
   }
 
-  stopProjectile(projectile: unknown): void {
+  stopProjectile(projectile: unknown, withImpact = true): void {
     if (projectile instanceof Phaser.Physics.Arcade.Sprite) {
+      if (withImpact) {
+        this.fx.impact(projectile.x, projectile.y);
+        AudioSystem.from(this.scene).playSfx("sfx-hit-wall");
+      }
       disableProjectile(projectile);
     }
   }
 
-  private showMuzzleFlash(x: number, y: number, stats: WeaponStats): void {
-    const flash = this.scene.add.image(x, y, "muzzle").setRotation(
-      Phaser.Math.FloatBetween(0, Math.PI),
-    );
-    this.scene.tweens.add({
-      targets: flash,
-      alpha: 0,
-      duration: Math.min(90, stats.fireRateMs / 2),
-      onComplete: () => {
-        flash.destroy();
-      },
-    });
+  private showMuzzleFlash(x: number, y: number, _stats: WeaponStats): void {
+    this.fx.muzzle(x, y);
   }
 }

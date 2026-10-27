@@ -25,6 +25,8 @@ export function recycleProjectile(
   }
 
   body.setAllowGravity(false);
+  body.setCircle(5);
+  body.setBounce(0);
   body.setCollideWorldBounds(true);
   body.onWorldBounds = true;
   sprite.scene.physics.velocityFromRotation(angle, speed, body.velocity);

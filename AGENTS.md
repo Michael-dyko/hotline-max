@@ -22,7 +22,7 @@ Birthday gift: a short top-down action game (Hotline Miami-like) for desktop bro
 - `src/scenes/` — Boot, Menu, Game (thin: wire systems, no combat math)
 - `src/systems/` — input, movement, level, collision, weapons, combat
 - `src/entities/` — player, projectiles, later enemies
-- `src/data/` — levels and weapon stats (do not hardcode balance in scenes)
+- `src/data/` — levels, weapons, and birthday copy in `gift.ts` (edit that file to personalize)
 - `src/config.ts` — resolution, speeds, colors
 
 ## Gameplay rules
