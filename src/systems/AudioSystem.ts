@@ -27,6 +27,7 @@ export class AudioSystem {
     this.game = game;
     this.settings = this.load();
     this.applyMute();
+    this.bindUnlock();
   }
 
   static from(scene: Phaser.Scene): AudioSystem {
@@ -40,10 +41,15 @@ export class AudioSystem {
   }
 
   unlock(): void {
-    if (!this.unlocked) {
-      this.unlocked = true;
-      this.game.sound.unlock();
+    this.game.sound.unlock();
+    const context = this.audioContext();
+    void context?.resume();
+
+    if (this.game.sound.locked || context?.state === "suspended") {
+      return;
     }
+
+    this.unlocked = true;
     if (this.pendingMusic) {
       const key = this.pendingMusic;
       this.pendingMusic = undefined;
@@ -112,6 +118,23 @@ export class AudioSystem {
 
   toggleMute(): void {
     this.setMuted(!this.settings.muted);
+  }
+
+  private bindUnlock(): void {
+    const onGesture = (): void => {
+      this.unlock();
+    };
+    window.addEventListener("pointerdown", onGesture);
+    window.addEventListener("keydown", onGesture);
+    this.game.sound.on(Phaser.Sound.Events.UNLOCKED, onGesture);
+    if (!this.game.sound.locked) {
+      this.unlock();
+    }
+  }
+
+  private audioContext(): AudioContext | undefined {
+    const manager = this.game.sound as unknown as { context?: AudioContext };
+    return manager.context;
   }
 
   private musicTrack(): Phaser.Sound.BaseSound | null {

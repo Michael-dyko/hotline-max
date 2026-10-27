@@ -21,6 +21,8 @@ export class MenuScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLORS.background);
     const audio = AudioSystem.from(this);
     audio.playMusic("music-menu");
+    this.input.on("pointerdown", () => audio.unlock());
+    this.input.keyboard?.on("keydown", () => audio.unlock());
     drawMenuGrid(this);
     new AudioPanel(this, audio, 48, GAME_HEIGHT - 140);
     this.showView("root");
